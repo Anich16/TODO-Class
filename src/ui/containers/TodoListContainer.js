@@ -3,11 +3,11 @@ import {connect} from "react-redux";
 import TodoList from "../views/TodoList";
 import {
     addTask, addTaskTitle,
-    createTask,
+    createTask, deleteTaskAC,
     getTasks,
     setStatus,
     setTasks,
-    statuses
+    statuses, todoSelector
 } from "../../redux/TodoListReducer";
 import * as axios from "axios";
 
@@ -28,7 +28,7 @@ let TodoListContainer = class extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        tasks: state.todoList.tasks,
+        tasks: todoSelector(state),
         status: state.todoList.status,
         newTaskTitle: state.todoList.newTaskTitle
     }
@@ -45,6 +45,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         addTaskTitle: (title, id) => {
             dispatch(addTaskTitle(title, id))
+        },
+        deleteTask: (id) => {
+            dispatch(deleteTaskAC(id))
         }
     }
 };

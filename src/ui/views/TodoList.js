@@ -6,6 +6,8 @@ import {statuses} from "../../redux/TodoListReducer";
 let TodoList = (props) => {
     let {tasks = []} = props;
 
+
+
     let onKeyUp = (e) => {
         if (e.keyCode == 13) {
             props.onTasksCreated(e.target.value);
@@ -17,6 +19,10 @@ let TodoList = (props) => {
 
         props.addTaskTitle(e.target.value);
     };
+
+
+
+
 
     return <div className={style.todoListBlock}>
         <div className={style.status}>
@@ -30,8 +36,20 @@ let TodoList = (props) => {
         </div>
         <div className={style.list}>
             <ul>
-                {tasks.map((el) => <li className={style.item} key={el.id}>{el.title}</li>)}
+                {tasks.map((el) => <div className={style.itemList} key={el.id}>
+
+                <li className={style.item} >
+                    <input type="checkbox" className={style.checkedField}/>
+
+                    {el.title}
+                    <button type="button" className={style.button} onClick={() => props.deleteTask(el.id)}>X</button>
+                    </li>
+                    </div>
+                    )
+
+                }
                 {tasks.length === 0 && <span>No tasks</span>}
+
             </ul>
         </div>
     </div>
